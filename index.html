@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- tailwind-->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>Guess</title>
+</head>
+<body>
+    <div class="w-full flex align-center overflow-hidden h-40 justify-center">
+            <div id="hAnim" class="grid grid-cols-12 gap-0">
+            </div>
+        <h1 class="absolute text-6xl m-4 px-20 py-4 bg-gray-100/40 rounded-xl backdrop-blur-sm">Guess</h1>
+    </div>
+
+
+    <div id="body" class="w-full h-screen relative flex align-center flex-col p-5 select-none">
+
+        <div id="menu" class="p-5 my-5 rounded-xl backdrop-blur-sm bg-gradient-to-t from-gray-500/30 to-gray-100`/30">
+            <ul class="flex gap-5 ">
+                <li id="create" class="font-bold hover:underline hover:text-blue-600 cursor-pointer active:text-blue-400">New User</li>
+                <li id="generate" class="font-bold hover:underline hover:text-blue-600 cursor-pointer active:text-blue-400">Generate</li>
+            </ul>
+        </div>
+        <div id="container" class="border border-gray-500/30 rounded-xl p-5">
+            <p id="initText">Les users seront affichés ici</p>
+        </div>
+
+    </div>
+
+    <script>
+        /*
+
+        // Version procedural
+        const hAnim = document.getElementById("hAnim");
+        function addLetters(container){
+            // la couleur aleatoire
+            let color = ["blue", "green", "cyan"]
+            colorP = color[Math.floor(Math.random() * color.length)];
+            // la lettre aleatoire
+            let contentP = String.fromCharCode(65 + Math.floor(Math.random() * 25));
+            // rajouter la lettre
+            let textP = document.createElement("p");
+            textP.className = "text-" + colorP  + "-800/70 font-bold leading-none mx-2 p-0"; 
+            textP.textContent = contentP;
+            container.appendChild(textP);
+            
+        }
+
+        setInterval(() =>{
+            if (hAnim.children.length > 1){
+                addLetters(hAnim);
+                let deleteP = hAnim.children[0];    
+                if(hAnim.children.length > 60){
+                    deleteP.remove();
+                }
+            } else {
+                for (let i=0; i<60; i++){
+                    addLetters(hAnim);  
+                }
+            }
+        }, 100);
+        */
+
+        class TextAnim {
+            /*
+                Mode d'emploi :
+                1. Créer un instance avec comme paramètre  l'id de la balise div ou il y aura l'animation
+                2. Si besoin, changez les variable de base qui sont listé dans le constructor 
+                3. Démarer l'animation avec la méthode start
+            */
+            constructor(container){
+                this.container = document.getElementById(container);;
+                this.time = 100;
+                this.number = 60
+                this.margin = 2;
+                this.color = ["blue", "green", "cyan"];
+                this.contrast = 800;
+
+                //lancement de l'initialisation
+
+                this.init();
+            }
+
+
+
+            // couleur aleatoire
+            randColor(){
+                return this.color[Math.floor(Math.random() * this.color.length)];
+            }
+
+            // lettre aléatoire
+            randContent(){
+                return String.fromCharCode(65 + Math.floor(Math.random() * 25));
+            }
+
+            // rajouter une lettre 
+            addLetters(){
+                let textP = document.createElement("p");
+                textP.className = "text-" + this.randColor()  + "-" + this.contrast + "/70 font-bold leading-none mx-2 p-0"; 
+                textP.textContent = this.randContent();
+                this.container.appendChild(textP);
+            }
+
+            // Supprime la première lettre après avoir ajouter la dernière lettre
+            animLetters(){
+                this.addLetters();
+                if(this.container.children.length > this.number){
+                    this.container.children[0].remove();
+                }
+            }
+
+
+            // initialisation pour mettre en place les premières lettres
+            init(){
+               for (let i=0; i< this.number; i++){
+                    this.addLetters();
+                } 
+            }  
+            
+
+            // lancer le script
+            start(){
+                setInterval(() =>{
+                    this.animLetters()
+                }, this.time);                
+            }
+            
+        }
+
+        const titreAnim = new TextAnim('hAnim');
+        titreAnim.contrast = 300;
+        titreAnim.time = 100;
+
+        titreAnim.color = ["green", "blue", "purple",];
+        titreAnim.start()
+
+
+        class User{
+            // cette classe gère la création d'un utilisateur et son affichage dans le container
+            // le constructeur prend en paramètre le body qui est le container ou il y aura les utilisateurs
+            constructor(body){
+                this.name = "x";
+                this.container = document.getElementById("container");
+                this.containerSize = 8;
+                this.create = document.getElementById("create")
+                this.body = body; 
+                this.init()
+                this.userNumber = 0;
+                this.listUser = [];
+
+            }
+            // init() ajoute un event listener au bouton de création d'utilisateur pour afficher le formulaire
+            init(){
+                this.create.addEventListener("click", ()=> { this.form()})
+            }
+            // form() crée un formulaire pour entrer le nom de l'utilisateur et ajoute un event listener au bouton d'enregistrement pour créer l'utilisateur
+            form(){
+                if(this.container.children.length < this.containerSize){
+                    if(document.getElementById('box')){
+                        document.getElementById('box').remove();
+                    }
+                    const divStart = "<div id='box' class='absolute w-[70%] flex flex-col align-center rounded-xl p-5 backdrop-blur-sm bg-gray-300/30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>";
+                    const label = "<div class='w-full flex justify-between align-end' ><label class='w-18 mx-2'>Nom</label>";
+                    const input = "<input id='name' class='w-full rounded-md mx-2 px-2' type='text'></div>";
+                    const button = "<button id='submit' class='m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Enregistrer</button>";   
+                    const divEnd = "</div>";
+                    this.body.insertAdjacentHTML("beforeend", divStart + label + input + button + divEnd);
+                    this.submit();
+                }else{
+                    const divStart = "<div id='box' class='absolute w-[70%] flex flex-col align-center rounded-xl p-5 backdrop-blur-sm bg-gray-300/30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>";
+                    const text = "<p class='w-18 mx-2'>Vous ne pouvez pas créer plus de " + this.containerSize + " utilisateurs</p>";
+                    const button = "<button id='back' class='m-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'>Fermer</button>";   
+                    const divEnd = "</div>";
+                    this.body.insertAdjacentHTML("beforeend", divStart + text + button + divEnd);
+                    this.back();
+                }
+
+            }
+
+            back(){
+                document.getElementById('back').addEventListener('click', ()=>{
+                    document.getElementById('box').remove();
+                })
+            }
+
+            // submit() ajoute un event listener au bouton d'enregistrement pour récupérer le nom de l'utilisateur, supprimer le formulaire et créer l'utilisateur
+            submit(){
+                document.getElementById('submit').addEventListener('click', ()=>{
+                    if(document.getElementById('initText')){
+                        document.getElementById('initText').remove();
+                    }
+                    this.name = document.getElementById('name').value;
+                    document.getElementById('box').remove();
+                    this.createUser();
+                })
+            }
+            // createUser() crée un élément HTML pour afficher l'utilisateur dans le container
+            createUser(){
+                this.userNumber++;
+                const user = "<div id='"+ this.userNumber + "' class='w-44 flex  justify-between rounded-xl p-5 backdrop-blur-sm bg-gray-300/30'>";
+                const h2 = "<h2 class=''>"+ this.name +"</h2>";
+                const deleteUser = '<div id="delete-'+ this.userNumber +'"class="w-6 h-6 border border-red-800/50 rounded-md bg-red-600 hover:bg-red-500 active:bg-red-400  text-white font-bold flex justify-center cursor-pointer">X</div>';
+                const divEnd = "</div>";
+                this.container.classList.add("flex", "flex-wrap", "justify-start", "align-start", "gap-5");
+                this.container.insertAdjacentHTML("beforeend", user + h2 + deleteUser + divEnd);
+                this.listUser.push(this.name);
+                this.delete();               
+            }
+            // delete() supprime l'user
+            delete(){
+                const deleteU = document.getElementById("delete-"+ this.userNumber);
+                const number = this.userNumber;
+                deleteU.addEventListener('click', ()=> {
+                    document.getElementById(number).remove();
+                })
+            }
+
+        }
+        NewUser = new User(document.getElementById("body"));
+
+        class Circle{
+            constructor(body){
+                this.size = 300;
+                this.color = ["red", "blue", "green", "cyan", "purple", "pink"];
+                this.borderSize = 2;
+                this.start = document.getElementById("generate");
+                this.body = body;
+                this.container = document.getElementById("container");
+                this.boxCircle = "x";
+
+                this.init();
+            }
+
+            init(){
+                this.start.addEventListener('click', ()=> {
+                    if(this.container.children.length > 1){
+                        const div = document.createElement("div");
+                        div.className ="border border-gray-500/30 rounded-xl p-5 my-5 flex justify-center align-center";
+                        div.id = "boxCircle";
+                        this.body.appendChild(div);
+                        this.createCircle();
+
+                    }else{
+                        const divStart = "<div id='boxG' class='absolute w-[70%] flex flex-col align-center rounded-xl p-5 backdrop-blur-sm bg-gray-300/30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>";
+                        const text = "<p class='w-18 mx-2'>Vous devez créer au moins 2 utilisateurs pour lancer le jeu</p>";
+                        const button = "<button id='backG' class='m-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'>Fermer</button>";   
+                        const divEnd = "</div>";
+                        this.body.insertAdjacentHTML("beforeend", divStart + text + button + divEnd);
+                        this.back();    
+                    }
+
+                })
+            }
+
+            back(){
+                document.getElementById('backG').addEventListener('click', ()=>{
+                    document.getElementById('boxG').remove();
+                })
+            }
+
+            createCircle(){
+                this.boxCircle = document.getElementById("boxCircle");
+                
+                if(this.container.children.length == 2){
+                    const circle = document.createElement("div");
+                    circle.className = "bg-conic from-red-500/50 from-10% to-transparent to-50% w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50";
+                    this.boxCircle.appendChild(circle);
+                } else if(this.container.children.length == 3){
+                    console.log("3");
+                } else if(this.container.children.length == 4){
+                    console.log("4");
+                } else if(this.container.children.length == 5){
+                    console.log("5");
+                } else if(this.container.children.length == 6){
+                    console.log("6");
+                } else if(this.container.children.length == 7){
+                    console.log("7");
+                } else if(this.container.children.length == 8){
+                    console.log("8");
+                }
+            }
+
+            randColor(){
+                const randCol = this.color[Math.floor(Math.random() * this.color.length)];
+                this.color = this.color.filter(color => color !== randCol);
+                return randCol;
+            }
+
+        }
+        NewCircle = new Circle(document.getElementById("body"));
+    </script>
+</body>
+</html>
