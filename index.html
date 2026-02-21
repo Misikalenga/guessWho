@@ -223,7 +223,7 @@
         NewUser = new User(document.getElementById("body"));
 
         class Circle{
-            constructor(body){
+            constructor(body, listUser = ["a","b","c"]){
                 this.size = 300;
                 this.color = ["red", "blue", "green", "cyan", "purple", "pink", "yellow", "orange"];
                 this.colorSet = this.color;
@@ -232,13 +232,16 @@
                 this.body = body;
                 this.container = document.getElementById("container");
                 this.boxCircle = "x";
+                this.boxRotate = "x";
+
+                this.listUser = listUser
 
                 this.init();
             }
 
             init(){
                 this.start.addEventListener('click', ()=> {
-                    if(this.container.children.length > 1){
+                    if(this.listUser.length > 1){
                         if(document.getElementById('boxCircle')){
                             document.getElementById('boxCircle').remove();
                         }
@@ -247,6 +250,9 @@
                         div.className ="border border-gray-500/30 rounded-xl p-5 my-5 flex justify-center align-center";
                         div.id = "boxCircle";
                         this.body.appendChild(div);
+                        const boxRotate = document.createElement("boxRotate");
+                        boxRotate.className ="w-["+ this.size +"px] h-["+ this.size +"px] flex justify-center align-center";
+                        this.boxRotate = boxRotate
                         this.createCircle();
 
                     }else{
@@ -269,57 +275,58 @@
 
             createCircle(){
                 this.boxCircle = document.getElementById("boxCircle");
-                const deleteCircle = document.querySelectorAll(".boxCircle");
+                this.boxCircle.appendChild(this.boxRotate)
+                const deleteCircle = document.querySelectorAll(".colorCircle");
                 deleteCircle.forEach(circle => circle.remove());
 
-                if(this.container.children.length == 2){
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c1' class=' boxCircle absolute bg-[conic-gradient(from_270deg,"+ this.randColor() +"_180deg,transparent_180deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c2' class=' boxCircle absolute bg-[conic-gradient(from_90deg,"+ this.randColor() +",_180deg,transparent_180deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                if(this.listUser.length == 2){
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_270deg,"+ this.randColor() +"_180deg,transparent_180deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_90deg,"+ this.randColor() +",_180deg,transparent_180deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
 
-                } else if(this.container.children.length == 3){
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c1' class=' boxCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_120deg,transparent_120deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c2' class=' boxCircle absolute bg-[conic-gradient(from_120deg,"+ this.randColor() +"_120deg,transparent_120deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c3' class=' boxCircle absolute bg-[conic-gradient(from_240deg,"+ this.randColor() +"_120deg,transparent_120deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                } else if(this.listUser.length == 3){
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_120deg,transparent_120deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_120deg,"+ this.randColor() +"_120deg,transparent_120deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c3' class=' colorCircle absolute bg-[conic-gradient(from_240deg,"+ this.randColor() +"_120deg,transparent_120deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
 
-                } else if(this.container.children.length == 4){
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c1' class=' boxCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_90deg,transparent_90deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c2' class=' boxCircle absolute bg-[conic-gradient(from_90deg,"+ this.randColor() +"_90deg,transparent_90deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c3' class=' boxCircle absolute bg-[conic-gradient(from_180deg,"+ this.randColor() +"_90deg,transparent_90deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c4' class=' boxCircle absolute bg-[conic-gradient(from_270deg,"+ this.randColor() +"_90deg,transparent_90deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                } else if(this.listUser.length == 4){
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_90deg,transparent_90deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_90deg,"+ this.randColor() +"_90deg,transparent_90deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c3' class=' colorCircle absolute bg-[conic-gradient(from_180deg,"+ this.randColor() +"_90deg,transparent_90deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c4' class=' colorCircle absolute bg-[conic-gradient(from_270deg,"+ this.randColor() +"_90deg,transparent_90deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
 
-                } else if(this.container.children.length == 5){
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c1' class=' boxCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_72deg,transparent_72deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c2' class=' boxCircle absolute bg-[conic-gradient(from_72deg,"+ this.randColor() +"_72deg,transparent_72deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c3' class=' boxCircle absolute bg-[conic-gradient(from_144deg,"+ this.randColor() +"_72deg,transparent_72deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c4' class=' boxCircle absolute bg-[conic-gradient(from_216deg,"+ this.randColor() +"_72deg,transparent_72deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c5' class=' boxCircle absolute bg-[conic-gradient(from_288deg,"+ this.randColor() +"_72deg,transparent_72deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                } else if(this.listUser.length == 5){
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_72deg,transparent_72deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_72deg,"+ this.randColor() +"_72deg,transparent_72deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c3' class=' colorCircle absolute bg-[conic-gradient(from_144deg,"+ this.randColor() +"_72deg,transparent_72deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c4' class=' colorCircle absolute bg-[conic-gradient(from_216deg,"+ this.randColor() +"_72deg,transparent_72deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c5' class=' colorCircle absolute bg-[conic-gradient(from_288deg,"+ this.randColor() +"_72deg,transparent_72deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
 
-                } else if(this.container.children.length == 6){
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c1' class=' boxCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c2' class=' boxCircle absolute bg-[conic-gradient(from_60deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c3' class=' boxCircle absolute bg-[conic-gradient(from_120deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c4' class=' boxCircle absolute bg-[conic-gradient(from_180deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c5' class=' boxCircle absolute bg-[conic-gradient(from_240deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c6' class=' boxCircle absolute bg-[conic-gradient(from_300deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                } else if(this.listUser.length == 6){
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_60deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c3' class=' colorCircle absolute bg-[conic-gradient(from_120deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c4' class=' colorCircle absolute bg-[conic-gradient(from_180deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c5' class=' colorCircle absolute bg-[conic-gradient(from_240deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c6' class=' colorCircle absolute bg-[conic-gradient(from_300deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
 
-                } else if(this.container.children.length == 7){
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c1' class=' boxCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c2' class=' boxCircle absolute bg-[conic-gradient(from_51deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c3' class=' boxCircle absolute bg-[conic-gradient(from_102deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c4' class=' boxCircle absolute bg-[conic-gradient(from_153deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c5' class=' boxCircle absolute bg-[conic-gradient(from_204deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c6' class=' boxCircle absolute bg-[conic-gradient(from_255deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c7' class=' boxCircle absolute bg-[conic-gradient(from_306deg,"+ this.randColor() +"_54deg,transparent_54deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                } else if(this.listUser.length == 7){
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_51deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c3' class=' colorCircle absolute bg-[conic-gradient(from_102deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c4' class=' colorCircle absolute bg-[conic-gradient(from_153deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c5' class=' colorCircle absolute bg-[conic-gradient(from_204deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c6' class=' colorCircle absolute bg-[conic-gradient(from_255deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c7' class=' colorCircle absolute bg-[conic-gradient(from_306deg,"+ this.randColor() +"_54deg,transparent_54deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
 
-                } else if(this.container.children.length == 8){
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c1' class=' boxCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c2' class=' boxCircle absolute bg-[conic-gradient(from_45deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c3' class=' boxCircle absolute bg-[conic-gradient(from_90deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c4' class=' boxCircle absolute bg-[conic-gradient(from_135deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c5' class=' boxCircle absolute bg-[conic-gradient(from_180deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c6' class=' boxCircle absolute bg-[conic-gradient(from_225deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c7' class=' boxCircle absolute bg-[conic-gradient(from_270deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxCircle.insertAdjacentHTML("beforeend","<div id='c8' class=' boxCircle absolute bg-[conic-gradient(from_315deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                } else if(this.listUser.length == 8){
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_45deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c3' class=' colorCircle absolute bg-[conic-gradient(from_90deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c4' class=' colorCircle absolute bg-[conic-gradient(from_135deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c5' class=' colorCircle absolute bg-[conic-gradient(from_180deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c6' class=' colorCircle absolute bg-[conic-gradient(from_225deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c7' class=' colorCircle absolute bg-[conic-gradient(from_270deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c8' class=' colorCircle absolute bg-[conic-gradient(from_315deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
 
                 }
             }
@@ -331,7 +338,7 @@
             }
 
         }
-        NewCircle = new Circle(document.getElementById("body"));
+        NewCircle = new Circle(document.getElementById("body"), NewUser.listUser);
 
 
 
