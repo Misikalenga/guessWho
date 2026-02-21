@@ -227,19 +227,22 @@
                 this.color = ["red", "blue", "green", "cyan", "purple", "pink", "yellow", "orange"];
                 this.colorSet = this.color;
                 this.borderSize = 2;
-                this.start = document.getElementById("generate");
+                this.startCircle = document.getElementById("generate");
                 this.body = body;
                 this.container = document.getElementById("container");
                 this.boxCircle = "x";
                 this.boxRotate = "x";
                 this.listUser = [];
+                this.intervalS = "x"
+                this.durataion = 100;
+                this.durationLength = this.durataion
                 
 
                 this.init();
             }
 
             init(){
-                this.start.addEventListener('click', ()=> {
+                this.startCircle.addEventListener('click', ()=> {
                     if(this.container.children.length > 1){
                         if(document.getElementById('boxCircle')){
                             document.getElementById('boxCircle').remove();
@@ -255,11 +258,11 @@
                         this.createCircle();
 
                     }else{
-                        const divStart = "<div id='boxG' class='absolute w-[70%] flex flex-col  rounded-xl p-5 backdrop-blur-sm bg-gray-300/30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>";
+                        const divStartCircle = "<div id='boxG' class='absolute w-[70%] flex flex-col  rounded-xl p-5 backdrop-blur-sm bg-gray-300/30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>";
                         const text = "<p class='w-18 mx-2'>Vous devez créer au moins 2 utilisateurs pour lancer le jeu</p>";
                         const button = "<button id='backG' class='m-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'>Fermer</button>";   
                         const divEnd = "</div>";
-                        this.body.insertAdjacentHTML("beforeend", divStart + text + button + divEnd);
+                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
                         this.back();    
                     }
 
@@ -274,10 +277,15 @@
 
             createCircle(){
                 this.recupUser();
+                
+                if( this.intervalS != "x"){clearInterval(this.intervalS);}
                 this.boxCircle = document.getElementById("boxCircle");
                 this.boxCircle.appendChild(this.boxRotate)
                 const deleteCircle = document.querySelectorAll(".colorCircle");
                 deleteCircle.forEach(circle => circle.remove());
+    
+                const btnStart = "<button id='start' class='absolute z-30 w-20 h-20 bg-green-500 hover:bg-green-400 active:bg-green-600 text-white font-bold py-2 px-4 rounded-full'>Start</button>";
+                this.boxRotate.insertAdjacentHTML("beforeend", btnStart);
 
                 if(this.container.children.length == 2){
                     const user1 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-1/2 -translate-x-1/2 top-[75px] -translate-y-1/2'>" + this.listUser[0] +"</p>";
@@ -371,6 +379,8 @@
                     this.boxRotate.insertAdjacentHTML("beforeend","<div id='c8' class=' colorCircle absolute bg-[conic-gradient(from_315deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user8 +"</div>");
 
                 }
+
+                this.start();
             }
 
             recupUser(){
@@ -384,6 +394,44 @@
                 const randCol = this.colorSet[Math.floor(Math.random() * this.colorSet.length)];
                 this.colorSet = this.colorSet.filter(color => color !== randCol);
                 return randCol;
+            }
+
+            start(){
+                let btnStart = document.getElementById("start");
+                let angle = 0;
+                let labelUser =document.querySelectorAll(".labelUser");
+
+                btnStart.addEventListener("click", () => {
+                    clearInterval(this.intervalS);
+                    let fast = 0;
+                    this.durationLength = this.durataion;
+                    let time = Math.floor(Math.random() * (60 - 30 + 1)) + 30;
+                    this.intervalS = setInterval(() => {
+                        this.boxRotate.style.transform = "rotate(" + angle + "deg)";
+                        labelUser.forEach(user => user.style.transform = "translate(-50%, -50%)  rotate(-" + angle + "deg)");
+                        btnStart.style.transform = " rotate(-" + angle + "deg)";
+                        if(this.durationLength > 1){
+                            this.durationLength--
+
+                            if(fast <= 50){fast++}
+                            angle += fast;  
+                            if(fast == 50){
+                                angle += Math.floor(Math.random() * 360); 
+                            }  
+                        }else{
+                            if(fast > 0){
+                                fast--;
+                                angle += fast;
+
+                            }
+
+                            if(fast == 0){
+                                clearInterval(this.intervalS);
+                            }
+                        }
+
+                    }, time);
+                });
             }
 
         }
