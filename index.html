@@ -10,14 +10,14 @@
     <title>Guess</title>
 </head>
 <body>
-    <div class="w-full flex align-center overflow-hidden h-40 justify-center">
+    <div class="w-full flex  overflow-hidden h-40 justify-center">
             <div id="hAnim" class="grid grid-cols-12 gap-0">
             </div>
         <h1 class="absolute text-6xl m-4 px-20 py-4 bg-gray-100/40 rounded-xl backdrop-blur-sm">Guess</h1>
     </div>
 
 
-    <div id="body" class="w-full h-screen relative flex align-center flex-col p-5 select-none">
+    <div id="body" class="w-full h-screen relative flex  flex-col p-5 select-none">
 
         <div id="menu" class="p-5 my-5 rounded-xl backdrop-blur-sm bg-gradient-to-t from-gray-500/30 to-gray-100`/30">
             <ul class="flex gap-5 ">
@@ -163,15 +163,15 @@
                     if(document.getElementById('box')){
                         document.getElementById('box').remove();
                     }
-                    const divStart = "<div id='box' class='absolute w-[70%] flex flex-col align-center rounded-xl p-5 backdrop-blur-sm bg-gray-300/30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>";
-                    const label = "<div class='w-full flex justify-between align-end' ><label class='w-18 mx-2'>Nom</label>";
+                    const divStart = "<div id='box' class='absolute w-[70%] flex flex-col rounded-xl p-5 backdrop-blur-sm bg-gray-300/30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>";
+                    const label = "<div class='w-full flex justify-between' ><label class='w-18 mx-2'>Nom</label>";
                     const input = "<input id='name' class='w-full rounded-md mx-2 px-2' type='text'></div>";
                     const button = "<button id='submit' class='m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Enregistrer</button>";   
                     const divEnd = "</div>";
                     this.body.insertAdjacentHTML("beforeend", divStart + label + input + button + divEnd);
                     this.submit();
                 }else{
-                    const divStart = "<div id='box' class='absolute w-[70%] flex flex-col align-center rounded-xl p-5 backdrop-blur-sm bg-gray-300/30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>";
+                    const divStart = "<div id='box' class='absolute w-[70%] flex flex-col rounded-xl p-5 backdrop-blur-sm bg-gray-300/30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>";
                     const text = "<p class='w-18 mx-2'>Vous ne pouvez pas créer plus de " + this.containerSize + " utilisateurs</p>";
                     const button = "<button id='back' class='m-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'>Fermer</button>";   
                     const divEnd = "</div>";
@@ -193,7 +193,7 @@
                     if(document.getElementById('initText')){
                         document.getElementById('initText').remove();
                     }
-                    this.name = document.getElementById('name').value;
+                    this.name = document.getElementById('name').value.trim();
                     document.getElementById('box').remove();
                     this.createUser();
                 })
@@ -205,7 +205,7 @@
                 const h2 = "<h2 class=''>"+ this.name +"</h2>";
                 const deleteUser = '<div id="delete-'+ this.userNumber +'"class="w-6 h-6 border border-red-800/50 rounded-md bg-red-600 hover:bg-red-500 active:bg-red-400  text-white font-bold flex justify-center cursor-pointer">X</div>';
                 const divEnd = "</div>";
-                this.container.classList.add("flex", "flex-wrap", "justify-start", "align-start", "gap-5");
+                this.container.classList.add("flex", "flex-wrap", "justify-start", "items-start", "gap-5");
                 this.container.insertAdjacentHTML("beforeend", user + h2 + deleteUser + divEnd);
                 this.listUser.push(this.name);
                 this.delete();               
@@ -223,8 +223,7 @@
         NewUser = new User(document.getElementById("body"));
 
         class Circle{
-            constructor(body, listUser = ["a","b","c"]){
-                this.size = 300;
+            constructor(body){
                 this.color = ["red", "blue", "green", "cyan", "purple", "pink", "yellow", "orange"];
                 this.colorSet = this.color;
                 this.borderSize = 2;
@@ -233,30 +232,30 @@
                 this.container = document.getElementById("container");
                 this.boxCircle = "x";
                 this.boxRotate = "x";
-
-                this.listUser = listUser
+                this.listUser = [];
+                
 
                 this.init();
             }
 
             init(){
                 this.start.addEventListener('click', ()=> {
-                    if(this.listUser.length > 1){
+                    if(this.container.children.length > 1){
                         if(document.getElementById('boxCircle')){
                             document.getElementById('boxCircle').remove();
                         }
                         this.colorSet = this.color;
                         const div = document.createElement("div");
-                        div.className ="border border-gray-500/30 rounded-xl p-5 my-5 flex justify-center align-center";
+                        div.className ="border border-gray-500/30 rounded-xl p-5 my-5 flex justify-center items-center";
                         div.id = "boxCircle";
                         this.body.appendChild(div);
                         const boxRotate = document.createElement("boxRotate");
-                        boxRotate.className ="w-["+ this.size +"px] h-["+ this.size +"px] flex justify-center align-center";
+                        boxRotate.className ="w-[300px] h-[300px] flex justify-center items-center";
                         this.boxRotate = boxRotate
                         this.createCircle();
 
                     }else{
-                        const divStart = "<div id='boxG' class='absolute w-[70%] flex flex-col align-center rounded-xl p-5 backdrop-blur-sm bg-gray-300/30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>";
+                        const divStart = "<div id='boxG' class='absolute w-[70%] flex flex-col  rounded-xl p-5 backdrop-blur-sm bg-gray-300/30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>";
                         const text = "<p class='w-18 mx-2'>Vous devez créer au moins 2 utilisateurs pour lancer le jeu</p>";
                         const button = "<button id='backG' class='m-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'>Fermer</button>";   
                         const divEnd = "</div>";
@@ -274,61 +273,111 @@
             }
 
             createCircle(){
+                this.recupUser();
                 this.boxCircle = document.getElementById("boxCircle");
                 this.boxCircle.appendChild(this.boxRotate)
                 const deleteCircle = document.querySelectorAll(".colorCircle");
                 deleteCircle.forEach(circle => circle.remove());
 
-                if(this.listUser.length == 2){
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_270deg,"+ this.randColor() +"_180deg,transparent_180deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_90deg,"+ this.randColor() +",_180deg,transparent_180deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                if(this.container.children.length == 2){
+                    const user1 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-1/2 -translate-x-1/2 top-[75px] -translate-y-1/2'>" + this.listUser[0] +"</p>";
+                    const user2 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-1/2 -translate-x-1/2 top-[225px] -translate-y-1/2'>" + this.listUser[1] +"</p>";
 
-                } else if(this.listUser.length == 3){
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_120deg,transparent_120deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_120deg,"+ this.randColor() +"_120deg,transparent_120deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c3' class=' colorCircle absolute bg-[conic-gradient(from_240deg,"+ this.randColor() +"_120deg,transparent_120deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_270deg,"+ this.randColor() +"_180deg,transparent_180deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user1 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_90deg,"+ this.randColor() +",_180deg,transparent_180deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user2 +"</div>");
 
-                } else if(this.listUser.length == 4){
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_90deg,transparent_90deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_90deg,"+ this.randColor() +"_90deg,transparent_90deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c3' class=' colorCircle absolute bg-[conic-gradient(from_180deg,"+ this.randColor() +"_90deg,transparent_90deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c4' class=' colorCircle absolute bg-[conic-gradient(from_270deg,"+ this.randColor() +"_90deg,transparent_90deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                } else if(this.container.children.length == 3){
+                    const user1 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[75px] -translate-x-1/2 top-[100px] -translate-y-1/2'>" + this.listUser[0] +"</p>";
+                    const user2 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[225px] -translate-x-1/2 top-[100px] -translate-y-1/2'>" + this.listUser[1] +"</p>";
+                    const user3 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-1/2 -translate-x-1/2 top-[225px] -translate-y-1/2'>" + this.listUser[2] +"</p>";
 
-                } else if(this.listUser.length == 5){
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_72deg,transparent_72deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_72deg,"+ this.randColor() +"_72deg,transparent_72deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c3' class=' colorCircle absolute bg-[conic-gradient(from_144deg,"+ this.randColor() +"_72deg,transparent_72deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c4' class=' colorCircle absolute bg-[conic-gradient(from_216deg,"+ this.randColor() +"_72deg,transparent_72deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c5' class=' colorCircle absolute bg-[conic-gradient(from_288deg,"+ this.randColor() +"_72deg,transparent_72deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_120deg,transparent_120deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user1 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_120deg,"+ this.randColor() +"_120deg,transparent_120deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user2 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c3' class=' colorCircle absolute bg-[conic-gradient(from_240deg,"+ this.randColor() +"_120deg,transparent_120deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user3 +"</div>");
 
-                } else if(this.listUser.length == 6){
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_60deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c3' class=' colorCircle absolute bg-[conic-gradient(from_120deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c4' class=' colorCircle absolute bg-[conic-gradient(from_180deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c5' class=' colorCircle absolute bg-[conic-gradient(from_240deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c6' class=' colorCircle absolute bg-[conic-gradient(from_300deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                } else if(this.container.children.length == 4){
+                    const user1 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[87px] -translate-x-1/2 top-[87px] -translate-y-1/2'>" + this.listUser[0] +"</p>";
+                    const user2 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[213px] -translate-x-1/2 top-[87px] -translate-y-1/2'>" + this.listUser[1] +"</p>";
+                    const user3 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[213px] -translate-x-1/2 top-[213px] -translate-y-1/2'>" + this.listUser[2] +"</p>";
+                    const user4 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[87px] -translate-x-1/2 top-[213px] -translate-y-1/2'>" + this.listUser[3] +"</p>";
 
-                } else if(this.listUser.length == 7){
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_51deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c3' class=' colorCircle absolute bg-[conic-gradient(from_102deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c4' class=' colorCircle absolute bg-[conic-gradient(from_153deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c5' class=' colorCircle absolute bg-[conic-gradient(from_204deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c6' class=' colorCircle absolute bg-[conic-gradient(from_255deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c7' class=' colorCircle absolute bg-[conic-gradient(from_306deg,"+ this.randColor() +"_54deg,transparent_54deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_90deg,transparent_90deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user1 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_90deg,"+ this.randColor() +"_90deg,transparent_90deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user2 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c3' class=' colorCircle absolute bg-[conic-gradient(from_180deg,"+ this.randColor() +"_90deg,transparent_90deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user3 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c4' class=' colorCircle absolute bg-[conic-gradient(from_270deg,"+ this.randColor() +"_90deg,transparent_90deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user4 +"</div>");
 
-                } else if(this.listUser.length == 8){
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_45deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c3' class=' colorCircle absolute bg-[conic-gradient(from_90deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c4' class=' colorCircle absolute bg-[conic-gradient(from_135deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c5' class=' colorCircle absolute bg-[conic-gradient(from_180deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c6' class=' colorCircle absolute bg-[conic-gradient(from_225deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c7' class=' colorCircle absolute bg-[conic-gradient(from_270deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
-                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c8' class=' colorCircle absolute bg-[conic-gradient(from_315deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-["+ this.size + "px] h-[" + this.size + "px] rounded-full border-" + this.borderSize + " border-red-700/50'></div>");
+                } else if(this.container.children.length == 5){
+                    const user1 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[100px] -translate-x-1/2 top-[75px] -translate-y-1/2'>" + this.listUser[0] +"</p>";
+                    const user2 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[200px] -translate-x-1/2 top-[75px] -translate-y-1/2'>" + this.listUser[1] +"</p>";
+                    const user3 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[240px] -translate-x-1/2 top-[175px] -translate-y-1/2'>" + this.listUser[2] +"</p>";
+                    const user4 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[150px] -translate-x-1/2 top-[238px] -translate-y-1/2'>" + this.listUser[3] +"</p>";
+                    const user5 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[60px] -translate-x-1/2 top-[175px] -translate-y-1/2'>" + this.listUser[4] +"</p>";
+
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_72deg,transparent_72deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user1 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_72deg,"+ this.randColor() +"_72deg,transparent_72deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user2 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c3' class=' colorCircle absolute bg-[conic-gradient(from_144deg,"+ this.randColor() +"_72deg,transparent_72deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user3 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c4' class=' colorCircle absolute bg-[conic-gradient(from_216deg,"+ this.randColor() +"_72deg,transparent_72deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user4 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c5' class=' colorCircle absolute bg-[conic-gradient(from_288deg,"+ this.randColor() +"_72deg,transparent_72deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user5 +"</div>");
+
+                } else if(this.container.children.length == 6){
+                    const user1 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[100px] -translate-x-1/2 top-[75px] -translate-y-1/2'>" + this.listUser[0] +"</p>";
+                    const user2 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[200px] -translate-x-1/2 top-[75px] -translate-y-1/2'>" + this.listUser[1] +"</p>";
+                    const user3 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[238px] -translate-x-1/2 top-[150px] -translate-y-1/2'>" + this.listUser[2] +"</p>";
+                    const user4 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[200px] -translate-x-1/2 top-[225px] -translate-y-1/2'>" + this.listUser[3] +"</p>";
+                    const user5 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[100px] -translate-x-1/2 top-[225px] -translate-y-1/2'>" + this.listUser[4] +"</p>";
+                    const user6 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[63px] -translate-x-1/2 top-[150px] -translate-y-1/2'>" + this.listUser[5] +"</p>";
+
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user1 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_60deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user2 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c3' class=' colorCircle absolute bg-[conic-gradient(from_120deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user3 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c4' class=' colorCircle absolute bg-[conic-gradient(from_180deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user4 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c5' class=' colorCircle absolute bg-[conic-gradient(from_240deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user5 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c6' class=' colorCircle absolute bg-[conic-gradient(from_300deg,"+ this.randColor() +"_60deg,transparent_60deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user6 +"</div>");
+
+                } else if(this.container.children.length == 7){
+                    const user1 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[113px] -translate-x-1/2 top-[63px] -translate-y-1/2'>" + this.listUser[0] +"</p>";
+                    const user2 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[187px] -translate-x-1/2 top-[63px] -translate-y-1/2'>" + this.listUser[1] +"</p>";
+                    const user3 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[238px] -translate-x-1/2 top-[125px] -translate-y-1/2'>" + this.listUser[2] +"</p>";
+                    const user4 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[225px] -translate-x-1/2 top-[200px] -translate-y-1/2'>" + this.listUser[3] +"</p>";
+                    const user5 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[150px] -translate-x-1/2 top-[237px] -translate-y-1/2'>" + this.listUser[4] +"</p>";
+                    const user6 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[75px] -translate-x-1/2 top-[200px] -translate-y-1/2'>" + this.listUser[5] +"</p>";
+                    const user7 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[63px] -translate-x-1/2 top-[125px] -translate-y-1/2'>" + this.listUser[6] +"</p>";
+
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user1 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_51deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user2 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c3' class=' colorCircle absolute bg-[conic-gradient(from_102deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user3 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c4' class=' colorCircle absolute bg-[conic-gradient(from_153deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user4 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c5' class=' colorCircle absolute bg-[conic-gradient(from_204deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user5 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c6' class=' colorCircle absolute bg-[conic-gradient(from_255deg,"+ this.randColor() +"_51deg,transparent_51deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user6 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c7' class=' colorCircle absolute bg-[conic-gradient(from_306deg,"+ this.randColor() +"_54deg,transparent_54deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user7 +"</div>");
+
+                } else if(this.container.children.length == 8){
+                    const user1 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[113px] -translate-x-1/2 top-[63px] -translate-y-1/2'>" + this.listUser[0] +"</p>";
+                    const user2 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[187px] -translate-x-1/2 top-[63px] -translate-y-1/2'>" + this.listUser[1] +"</p>";
+                    const user3 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[238px] -translate-x-1/2 top-[113px] -translate-y-1/2'>" + this.listUser[2] +"</p>";
+                    const user4 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[238px] -translate-x-1/2 top-[187px] -translate-y-1/2'>" + this.listUser[3] +"</p>";
+                    const user5 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[187px] -translate-x-1/2 top-[237px] -translate-y-1/2'>" + this.listUser[4] +"</p>";
+                    const user6 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[113px] -translate-x-1/2 top-[237px] -translate-y-1/2'>" + this.listUser[5] +"</p>";
+                    const user7 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[63px] -translate-x-1/2 top-[187px] -translate-y-1/2'>" + this.listUser[6] +"</p>";
+                    const user8 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-[63px] -translate-x-1/2 top-[113px] -translate-y-1/2'>" + this.listUser[7] +"</p>";
+
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c1' class=' colorCircle absolute bg-[conic-gradient(from_0deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user1 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c2' class=' colorCircle absolute bg-[conic-gradient(from_45deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user2 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c3' class=' colorCircle absolute bg-[conic-gradient(from_90deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user3 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c4' class=' colorCircle absolute bg-[conic-gradient(from_135deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user4 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c5' class=' colorCircle absolute bg-[conic-gradient(from_180deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user5 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c6' class=' colorCircle absolute bg-[conic-gradient(from_225deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user6 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c7' class=' colorCircle absolute bg-[conic-gradient(from_270deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user7 +"</div>");
+                    this.boxRotate.insertAdjacentHTML("beforeend","<div id='c8' class=' colorCircle absolute bg-[conic-gradient(from_315deg,"+ this.randColor() +"_45deg,transparent_45deg)] w-[300px] h-[300px] rounded-full border-" + this.borderSize + " border-red-700/50'>"+ user8 +"</div>");
 
                 }
+            }
+
+            recupUser(){
+                this.listUser = [];
+                const userName = document.querySelectorAll("#container h2");
+                userName.forEach(user => this.listUser.push(user.textContent.trim()) )
+
             }
 
             randColor(){
@@ -338,7 +387,7 @@
             }
 
         }
-        NewCircle = new Circle(document.getElementById("body"), NewUser.listUser);
+        NewCircle = new Circle(document.getElementById("body"));
 
 
 
