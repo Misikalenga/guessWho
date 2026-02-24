@@ -249,7 +249,7 @@
                         }
                         this.colorSet = this.color;
                         const div = document.createElement("div");
-                        div.className ="border border-gray-500/30 rounded-xl p-5 my-5 flex justify-center items-center";
+                        div.className =" relative border border-gray-500/30 rounded-xl p-5 my-5 flex justify-center items-center";
                         div.id = "boxCircle";
                         this.body.appendChild(div);
                         const boxRotate = document.createElement("boxRotate");
@@ -286,6 +286,11 @@
     
                 const btnStart = "<button id='start' class='absolute z-30 w-20 h-20 bg-green-500 hover:bg-green-400 active:bg-green-600 text-white font-bold py-2 px-4 rounded-full'>Start</button>";
                 this.boxRotate.insertAdjacentHTML("beforeend", btnStart);
+
+                const count = document.createElement("div");
+                count.className = "w-24 h-24 z-40 absolute left-1/2 -translate-x-1/2 top-0 bg-red-500 border-r-[50px] border-r-transparent border-l-[50px] border-l-transparent "
+                this.boxCircle.appendChild(count);
+                this.counter()
 
                 if(this.container.children.length == 2){
                     const user1 = "<p class='labelUser bg-white z-20 font-bold px-2 rounded absolute left-1/2 -translate-x-1/2 top-[75px] -translate-y-1/2'>" + this.listUser[0] +"</p>";
@@ -395,6 +400,8 @@
                 this.colorSet = this.colorSet.filter(color => color !== randCol);
                 return randCol;
             }
+
+            counter(){}
 
             start(){
                 let btnStart = document.getElementById("start");
