@@ -28,7 +28,7 @@
             <ul class="flex gap-10 justify-center">
                 <li id="create" class="font-bold hover:underline hover:text-blue-600 cursor-pointer active:text-blue-400">New User</li>
                 <li id="generate" class="font-bold hover:underline hover:text-blue-600 cursor-pointer active:text-blue-400">Mode Auto</li>
-                <li id="generate" class="font-bold hover:underline hover:text-blue-600 cursor-pointer active:text-blue-400">Mode Manuel</li>
+                <li id="modeStop" class="font-bold hover:underline hover:text-blue-600 cursor-pointer active:text-blue-400">Mode Manuel</li>
             </ul>
         </div>
         <div id="container" class="border border-gray-500/30 rounded-xl p-5">
@@ -236,7 +236,7 @@
             }
 
         }
-        NewUser = new User(document.getElementById("body"));
+        const NewUser = new User(document.getElementById("body"));
 
         class Circle{
             // cette classe gère la création de la roue qui tourne et selectionne l'utilisateur gagnant
@@ -660,7 +660,79 @@
             }
 
         }
-        NewCircle = new Circle(document.getElementById("body"));
+        //const NewCircle = new Circle(document.getElementById("body"));
+
+        class CircleStop extends Circle{
+            constructor(body){
+                super(body);
+                this.startCircle = document.getElementById("modeStop");
+                this.init();
+            }
+
+            start(){
+                let btnStart = document.getElementById("start");
+                let angle = 0;
+                let labelUser =document.querySelectorAll(".labelUser");
+                let lock = true;
+                let stop = false;
+                let fast = 0;
+                let time = 0;
+                btnStart.addEventListener("click", () => {
+                    if(lock == false){
+                        stop = true;
+                    }else{
+                        time = Math.floor(Math.random() * (60 - 30 + 1)) + 30;
+                        fast = 0;
+                        clearInterval(this.intervalS);
+                    
+                        this.intervalS = setInterval(() => {
+                            this.boxRotate.style.transform = "rotate(" + angle + "deg)";
+                            labelUser.forEach(user => user.style.transform = "translate(-50%, -50%)  rotate(-" + angle + "deg)");
+                            btnStart.style.transform = " rotate(-" + angle + "deg)";
+                            if(lock == true){
+                                if(document.getElementById('boxG')){
+                                    document.getElementById('boxG').remove();
+                                }
+
+                                if(fast < 50){fast++}
+                                angle += fast;  
+                                if(fast >= 50){
+                                    lock = false;
+                                    btnStart.textContent = "Stop";
+                                    btnStart.classList.remove("bg-green-500", "hover:bg-green-700");
+                                    btnStart.classList.add("bg-red-500", "hover:bg-red-700"); 
+                                }                       
+                            }else{
+                                if(stop == true){
+                                    if(fast > 0){
+                                        fast--;
+                                        angle += fast;
+                                    }
+                                    if(fast == 0){
+                                        clearInterval(this.intervalS);
+                                        this.counter()
+                                        if(document.getElementById('box')){
+                                            document.getElementById('box').remove();
+                                        }
+                                        stop = false;
+                                        lock = true;
+                                        btnStart.textContent = "Start";
+                                        btnStart.classList.remove("bg-red-500", "hover:bg-red-700");
+                                        btnStart.classList.add("bg-green-500", "hover:bg-green-700");
+                                    }
+                                }else{
+                                    angle += fast;
+                                }
+                            }
+                        }, time);
+                    }
+                });
+                
+            }
+
+        }
+
+        const NewCircleStop = new CircleStop(document.getElementById("body"));
 
 
 
