@@ -253,9 +253,10 @@
                 this.intervalS = "x"
                 this.durataion = 100; // la durée de chaque tour de roue en ms
                 this.durationLength = this.durataion
+                this.btnStart = "btnStart"; // le bouton pour lancer la roue
                 
 
-                this.init();
+
             }
 
             // init() ajoute un event listener au bouton de génération pour créer la roue et lancer l'animation
@@ -321,7 +322,7 @@
                 const deleteCircle = document.querySelectorAll(".colorCircle");
                 deleteCircle.forEach(circle => circle.remove());
     
-                const btnStart = "<button id='start' class='absolute z-30 w-20 h-20 bg-green-500 hover:bg-green-400 active:bg-green-600 text-white font-bold py-2 px-4 rounded-full'>Start</button>";
+                const btnStart = "<button id='"+this.btnStart + "' class='absolute z-30 w-20 h-20 bg-green-500 hover:bg-green-400 active:bg-green-600 text-white font-bold py-2 px-4 rounded-full'>Start</button>";
                 this.boxRotate.insertAdjacentHTML("beforeend", btnStart);
 
                 const count = document.createElement("div");
@@ -454,168 +455,169 @@
                 const divEnd = "</div>";
     
 
-
-                if(this.container.children.length == 2){
-                    if(rotation >= 270 || rotation < 90){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[0] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else{
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[1] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
+                setTimeout(() => {
+                    if(this.container.children.length == 2){
+                        if(rotation >= 270 || rotation < 90){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[0] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else{
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[1] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }
+                    }else if(this.container.children.length == 3){
+                        if(rotation >= 0 && rotation < 120){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[0] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 120 && rotation < 240){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[1] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else{
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[2] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }
+                    }else if(this.container.children.length == 4){
+                        if(rotation >= 0 && rotation < 90){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[0] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 90 && rotation < 180){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[1] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 180 && rotation < 270){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[2] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else{
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[3] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }
+                    }else if(this.container.children.length == 5){
+                        if(rotation >= 0 && rotation < 72){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[0] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 72 && rotation < 144){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[1] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 144 && rotation < 216){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[2] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 216 && rotation < 288){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[3] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else{
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[4] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }
+                    }else if(this.container.children.length == 6){
+                        if(rotation >= 0 && rotation < 60){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[0] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 60 && rotation < 120){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[1] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 120 && rotation < 180){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[2] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 180 && rotation < 240){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[3] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 240 && rotation < 300){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[4] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else{
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[5] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }
+                    }else if(this.container.children.length == 7){
+                        if(rotation >= 0 && rotation < 51){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[0] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 51 && rotation < 102){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[1] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 102 && rotation < 153){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[2] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 153 && rotation < 204){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[3] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 204 && rotation < 255){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[4] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 255 && rotation < 306){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[5] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else{
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[6] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }
+                    }else if(this.container.children.length == 8){
+                        if(rotation >= 0 && rotation < 45){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[0] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 45 && rotation < 90){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[1] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 90 && rotation < 135){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[2] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 135 && rotation < 180){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[3] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 180 && rotation < 225){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[4] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 225 && rotation < 270){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[5] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else if(rotation >= 270 && rotation < 315){
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[6] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }else{
+                            let text = "<p class='w-18 mx-2'>"+ this.listUser[7] +" à gagné</p>";
+                            this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
+                            this.back();
+                        }
                     }
-                }else if(this.container.children.length == 3){
-                    if(rotation >= 0 && rotation < 120){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[0] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 120 && rotation < 240){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[1] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else{
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[2] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }
-                }else if(this.container.children.length == 4){
-                    if(rotation >= 0 && rotation < 90){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[0] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 90 && rotation < 180){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[1] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 180 && rotation < 270){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[2] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else{
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[3] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }
-                }else if(this.container.children.length == 5){
-                    if(rotation >= 0 && rotation < 72){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[0] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 72 && rotation < 144){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[1] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 144 && rotation < 216){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[2] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 216 && rotation < 288){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[3] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else{
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[4] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }
-                }else if(this.container.children.length == 6){
-                    if(rotation >= 0 && rotation < 60){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[0] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 60 && rotation < 120){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[1] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 120 && rotation < 180){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[2] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 180 && rotation < 240){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[3] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 240 && rotation < 300){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[4] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else{
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[5] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }
-                }else if(this.container.children.length == 7){
-                    if(rotation >= 0 && rotation < 51){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[0] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 51 && rotation < 102){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[1] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 102 && rotation < 153){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[2] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 153 && rotation < 204){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[3] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 204 && rotation < 255){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[4] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 255 && rotation < 306){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[5] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else{
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[6] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }
-                }else if(this.container.children.length == 8){
-                    if(rotation >= 0 && rotation < 45){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[0] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 45 && rotation < 90){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[1] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 90 && rotation < 135){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[2] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 135 && rotation < 180){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[3] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 180 && rotation < 225){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[4] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 225 && rotation < 270){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[5] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else if(rotation >= 270 && rotation < 315){
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[6] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }else{
-                        let text = "<p class='w-18 mx-2'>"+ this.listUser[7] +" à gagné</p>";
-                        this.body.insertAdjacentHTML("beforeend", divStartCircle + text + button + divEnd);
-                        this.back();
-                    }
-                }
+                }, 500);
 
             }
             
             // start() lance l'animation de rotation de la roue et appelle la fonction counter() pour déterminer le gagnant à la fin de l'animation
             start(){
-                let btnStart = document.getElementById("start");
+                let btnStart = document.getElementById(this.btnStart);
                 let angle = 0;
                 let labelUser =document.querySelectorAll(".labelUser");
 
@@ -660,17 +662,19 @@
             }
 
         }
-        //const NewCircle = new Circle(document.getElementById("body"));
+        const NewCircle = new Circle(document.getElementById("body"));
+        NewCircle.init()
 
         class CircleStop extends Circle{
             constructor(body){
                 super(body);
                 this.startCircle = document.getElementById("modeStop");
-                this.init();
+                this.btnStart = "btnStartStop";
+
             }
 
             start(){
-                let btnStart = document.getElementById("start");
+                let btnStart = document.getElementById(this.btnStart);
                 let angle = 0;
                 let labelUser =document.querySelectorAll(".labelUser");
                 let lock = true;
@@ -699,8 +703,8 @@
                                 if(fast >= 50){
                                     lock = false;
                                     btnStart.textContent = "Stop";
-                                    btnStart.classList.remove("bg-green-500", "hover:bg-green-700");
-                                    btnStart.classList.add("bg-red-500", "hover:bg-red-700"); 
+                                    btnStart.classList.remove("bg-green-500", "hover:bg-green-400", "active:bg-green-600");
+                                    btnStart.classList.add("bg-red-500", "hover:bg-red-700", "active:bg-red-600"); 
                                 }                       
                             }else{
                                 if(stop == true){
@@ -717,8 +721,8 @@
                                         stop = false;
                                         lock = true;
                                         btnStart.textContent = "Start";
-                                        btnStart.classList.remove("bg-red-500", "hover:bg-red-700");
-                                        btnStart.classList.add("bg-green-500", "hover:bg-green-700");
+                                        btnStart.classList.remove("bg-red-500", "hover:bg-red-700", "active:bg-red-600");
+                                        btnStart.classList.add("bg-green-500", "hover:bg-green-400", "active:bg-green-600");
                                     }
                                 }else{
                                     angle += fast;
@@ -733,7 +737,7 @@
         }
 
         const NewCircleStop = new CircleStop(document.getElementById("body"));
-
+        NewCircleStop.init()
 
 
     </script>
