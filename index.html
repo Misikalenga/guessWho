@@ -9,7 +9,7 @@
 
     <title>Guess-Who</title>
 </head>
-<body>
+<body class="pb-5">
     <div class="w-full flex  overflow-hidden h-40 justify-center">
             <div id="hAnim" class="grid grid-cols-12 gap-0">
             </div>
@@ -18,11 +18,17 @@
 
 
     <div id="body" class="w-full h-screen relative flex  flex-col p-5 select-none">
+        <p class="text-justify p-2">
+            Guess Who te permet de choisir quelqu’un au hasard dans ton groupe. Ajoute d’abord les joueurs avec New User,
+             puis démarre la roue. En Mode Auto, la roue tourne et s’arrête automatiquement. En Mode Manuel,
+             c’est toi qui décides du moment où elle s’arrête en appuyant sur Stop. 
+        </p>
 
         <div id="menu" class="p-5 my-5 rounded-xl backdrop-blur-sm bg-gradient-to-t from-gray-500/30 to-gray-100`/30">
-            <ul class="flex gap-5 ">
+            <ul class="flex gap-10 justify-center">
                 <li id="create" class="font-bold hover:underline hover:text-blue-600 cursor-pointer active:text-blue-400">New User</li>
-                <li id="generate" class="font-bold hover:underline hover:text-blue-600 cursor-pointer active:text-blue-400">Generate</li>
+                <li id="generate" class="font-bold hover:underline hover:text-blue-600 cursor-pointer active:text-blue-400">Mode Auto</li>
+                <li id="generate" class="font-bold hover:underline hover:text-blue-600 cursor-pointer active:text-blue-400">Mode Manuel</li>
             </ul>
         </div>
         <div id="container" class="border border-gray-500/30 rounded-xl p-5">
@@ -193,9 +199,6 @@
             // submit() ajoute un event listener au bouton d'enregistrement pour récupérer le nom de l'utilisateur, supprimer le formulaire et créer l'utilisateur
             submit(){
                 document.getElementById('submit').addEventListener('click', ()=>{
-                    if(document.getElementById('initText')){
-                        document.getElementById('initText').remove();
-                    }
                     this.name = document.getElementById('name').value.trim();
                     document.getElementById('box').remove()
                     this.createUser();
@@ -203,15 +206,21 @@
             }
             // createUser() crée un élément HTML pour afficher l'utilisateur dans le container
             createUser(){
-                this.userNumber++;
-                const user = "<div id='"+ this.userNumber + "' class='w-44 flex  justify-between rounded-xl p-5 backdrop-blur-sm bg-gray-200/30 shadow-sm '>";
-                const h2 = "<h2 class=''>"+ this.name +"</h2>";
-                const deleteUser = '<div id="delete-'+ this.userNumber +'"class="w-6 h-6 border border-red-800/50 rounded-md bg-red-600 hover:bg-red-500 active:bg-red-400  text-white font-bold flex justify-center cursor-pointer">X</div>';
-                const divEnd = "</div>";
-                this.container.classList.add("flex", "flex-wrap", "justify-start", "items-start", "gap-5");
-                this.container.insertAdjacentHTML("beforeend", user + h2 + deleteUser + divEnd);
-                this.listUser.push(this.name);
-                this.delete();               
+                if(this.name != ""){
+                    if(document.getElementById('initText')){
+                        document.getElementById('initText').remove();
+                    }
+                    this.userNumber++;
+                    const user = "<div id='"+ this.userNumber + "' class='w-44 flex  justify-between rounded-xl p-5 backdrop-blur-sm bg-gray-200/30 shadow-sm '>";
+                    const h2 = "<h2 class=''>"+ this.name +"</h2>";
+                    const deleteUser = '<div id="delete-'+ this.userNumber +'"class="w-6 h-6 border border-red-800/50 rounded-md bg-red-600 hover:bg-red-500 active:bg-red-400  text-white font-bold flex justify-center cursor-pointer">X</div>';
+                    const divEnd = "</div>";
+                    this.container.classList.add("flex", "flex-wrap", "justify-start", "items-start", "gap-5");
+                    this.container.insertAdjacentHTML("beforeend", user + h2 + deleteUser + divEnd);
+                    this.listUser.push(this.name);
+                    this.delete();
+                    console.log(this.userNumber);
+                }               
             }
             // delete() supprime l'user
             delete(){
@@ -219,6 +228,10 @@
                 const number = this.userNumber;
                 deleteU.addEventListener('click', ()=> {
                     document.getElementById(number).remove();
+                    if(this.container.children.length == 0){
+                        const initText = "<p id='initText'>Les users seront affichés ici</p>";
+                        this.container.insertAdjacentHTML("beforeend", initText);
+                    }
                 })
             }
 
@@ -260,7 +273,7 @@
                         }
                         this.colorSet = this.color;
                         const div = document.createElement("div");
-                        div.className =" relative border border-gray-500/30 rounded-xl p-5 my-5 flex justify-center items-center";
+                        div.className =" relative border border-gray-500/30 rounded-xl p-5 my-5 flex justify-center items-center scroll- w-full min-h-[340px] overflow-hidden mb-5";
                         div.id = "boxCircle";
                         this.body.appendChild(div);
                         const boxRotate = document.createElement("div");
@@ -608,6 +621,9 @@
 
                 btnStart.addEventListener("click", () => {
                     clearInterval(this.intervalS);
+                    if(document.getElementById('boxG')){
+                        document.getElementById('boxG').remove();
+                    }
                     let fast = 0;
                     this.durationLength = this.durataion;
                     let time = Math.floor(Math.random() * (60 - 30 + 1)) + 30;
