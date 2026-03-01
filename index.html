@@ -7,13 +7,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <title>Guess</title>
+    <title>Guess-Who</title>
 </head>
 <body>
     <div class="w-full flex  overflow-hidden h-40 justify-center">
             <div id="hAnim" class="grid grid-cols-12 gap-0">
             </div>
-        <h1 class="absolute text-6xl m-4 px-20 py-4 bg-gray-100/40 rounded-xl backdrop-blur-sm">Guess</h1>
+        <h1 class="absolute text-6xl m-4 px-5 py-4 bg-gray-100/40 rounded-xl backdrop-blur-sm">Guess Who</h1>
     </div>
 
 
@@ -226,24 +226,26 @@
         NewUser = new User(document.getElementById("body"));
 
         class Circle{
+            // cette classe gère la création de la roue qui tourne et selectionne l'utilisateur gagnant
             constructor(body){
                 this.color = ["red", "blue", "green", "cyan", "purple", "pink", "yellow", "orange"];
                 this.colorSet = this.color;
                 this.borderSize = 2;
-                this.startCircle = document.getElementById("generate");
-                this.body = body;
-                this.container = document.getElementById("container");
+                this.startCircle = document.getElementById("generate"); // le bouton pour générer la roue
+                this.body = body; // le body pour ajouter la roue
+                this.container = document.getElementById("container"); // le container ou il y a les utilisateurs
                 this.boxCircle = "x";
                 this.boxRotate = "x";
                 this.listUser = [];
                 this.intervalS = "x"
-                this.durataion = 100;
+                this.durataion = 100; // la durée de chaque tour de roue en ms
                 this.durationLength = this.durataion
                 
 
                 this.init();
             }
 
+            // init() ajoute un event listener au bouton de génération pour créer la roue et lancer l'animation
             init(){
                 this.startCircle.addEventListener('click', ()=> {
                     if(this.container.children.length > 1){
@@ -286,6 +288,7 @@
                 })
             }
 
+            // ferme le message d'erreur si il n'y a pas assez d'utilisateur pour lancer le jeu
             back(){
                 document.getElementById('backG').addEventListener('click', ()=>{
                     document.getElementById('boxG').remove();
@@ -295,6 +298,7 @@
                 })
             }
 
+            // crée la roue et la divise en fonction du nombre d'utilisateur, ajoute les utilisateurs sur la roue et lance l'animation de rotation
             createCircle(){
                 this.recupUser();
                 
@@ -409,6 +413,7 @@
                 this.start();
             }
 
+            // recupUser() récupère les noms des utilisateurs dans le container et les stocke dans une liste
             recupUser(){
                 this.listUser = [];
                 const userName = document.querySelectorAll("#container h2");
@@ -416,12 +421,14 @@
 
             }
 
+            //
             randColor(){
                 const randCol = this.colorSet[Math.floor(Math.random() * this.colorSet.length)];
                 this.colorSet = this.colorSet.filter(color => color !== randCol);
                 return randCol;
             }
 
+            // counter() récupère la rotation de la roue et détermine quel utilisateur a gagné en fonction oriantation de la roue
             counter(){
                 let rotation = document.getElementById("boxRotate").style.transform;
                 rotation = rotation.replace("rotate(", "").replace("deg)", "");
@@ -592,7 +599,8 @@
                 }
 
             }
-
+            
+            // start() lance l'animation de rotation de la roue et appelle la fonction counter() pour déterminer le gagnant à la fin de l'animation
             start(){
                 let btnStart = document.getElementById("start");
                 let angle = 0;
