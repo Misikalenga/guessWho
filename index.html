@@ -85,6 +85,7 @@
                 this.margin = 2;
                 this.color = ["blue", "green", "cyan"];
                 this.contrast = 800;
+                this.anim = "";
 
                 //lancement de l'initialisation
 
@@ -130,11 +131,15 @@
 
             // lancer le script
             start(){
-                setInterval(() =>{
+                this.anim = setInterval(() =>{
                     this.animLetters()
                 }, this.time);                
             }
             
+            // stoper l'animation
+            stop(){
+                clearInterval(this.anim)
+            }
         }
 
         const titreAnim = new TextAnim('hAnim');
