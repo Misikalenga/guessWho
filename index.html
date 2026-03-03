@@ -126,6 +126,7 @@
                for (let i=0; i< this.number; i++){
                     this.addLetters();
                 } 
+                this.stop()   
             }  
             
 
@@ -133,12 +134,14 @@
             start(){
                 this.anim = setInterval(() =>{
                     this.animLetters()
-                }, this.time);                
+                }, this.time);
+                
             }
             
-            // stoper l'animation
+            // stop l'animation
             stop(){
-                clearInterval(this.anim)
+                this.container.addEventListener('mouseenter', () => {clearInterval(this.anim);})
+                this.container.addEventListener('click', () => {clearInterval(this.anim); this.start();})
             }
         }
 
