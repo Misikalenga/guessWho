@@ -25,19 +25,21 @@ export default class User{
             if(document.getElementById('box')){
                 document.getElementById('box').remove();
             }
-            const divStart = "<div id='box' class='absolute w-[70%] flex flex-col rounded-xl p-5 backdrop-blur-sm bg-white/90 shadow-xl z-50  border border-gray-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>";
-            const label = "<div class='w-full flex justify-between' ><label class='w-18 mx-2'>Nom</label>";
-            const input = "<input id='name' class='w-full  border border-blue-100 rounded-md mx-2 px-2' type='text'></div>";
-            const button = "<button id='submit' class='m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Enregistrer</button>";   
+            const divStart = "<div id='box' class='box'>";
+            const label = "<div class='row'><label class='label'>Nom</label>";
+            const input = "<input id='name' class='input' type='text'></div>";
+            const button = "<button id='submit' class='button'>Enregistrer</button>";
             const divEnd = "</div>";
+
             this.body.insertAdjacentHTML("beforeend", divStart + label + input + button + divEnd);
+
             this.submit();
         }else{
-            const divStart = "<div id='box' class='absolute w-[70%] flex flex-col rounded-xl p-5 backdrop-blur-sm bg-white/90 shadow-xl z-50  border border-gray-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>";
-            const text = "<p class='w-18 mx-2'>Vous ne pouvez pas créer plus de " + this.containerSize + " utilisateurs</p>";
-            const button = "<button id='back' class='m-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'>Fermer</button>";   
+            const divStart = "<div id='box' class='box'>";
+            const text = "<p class='info'>Vous ne pouvez pas créer plus de " + this.containerSize + " utilisateurs</p>";
+            const button = "<button id='back' class='button button-danger'>Fermer</button>";
             const divEnd = "</div>";
-            this.body.insertAdjacentHTML("beforeend", divStart + text + button + divEnd);
+            this.body.insertAdjacentHTML("beforeend",divStart + text + button + divEnd);
             this.back();
         }
 
@@ -64,15 +66,14 @@ export default class User{
                 document.getElementById('initText').remove();
             }
             this.userNumber++;
-            const user = "<div id='"+ this.userNumber + "' class='w-44 flex  justify-between rounded-xl p-5 backdrop-blur-sm bg-gray-200/30 shadow-sm '>";
-            const h2 = "<h2 class=''>"+ this.name +"</h2>";
-            const deleteUser = '<div id="delete-'+ this.userNumber +'"class="w-6 h-6 border border-red-800/50 rounded-md bg-red-600 hover:bg-red-500 active:bg-red-400  text-white font-bold flex justify-center cursor-pointer">X</div>';
+            const user ="<div id='" + this.userNumber + "' class='user-card'>";
+            const h2 ="<h2 class='user-name'>" + this.name + "</h2>";
+            const deleteUser ="<div id='delete-" + this.userNumber + "' class='icon-btn icon-btn-danger'>X</div>";
             const divEnd = "</div>";
-            this.container.classList.add("flex", "flex-wrap", "justify-start", "items-start", "gap-5");
+            this.container.classList.add("user-grid");
             this.container.insertAdjacentHTML("beforeend", user + h2 + deleteUser + divEnd);
             this.listUser.push(this.name);
             this.delete();
-            console.log(this.userNumber);
         }               
     }
     // delete() supprime l'user
