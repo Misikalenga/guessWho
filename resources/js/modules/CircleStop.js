@@ -38,8 +38,8 @@ export default class CircleStop extends Circle{
                         if(fast >= 50){
                             lock = false;
                             btnStart.textContent = "Stop";
-                            btnStart.classList.remove("bg-green-500", "hover:bg-green-400", "active:bg-green-600");
-                            btnStart.classList.add("bg-red-500", "hover:bg-red-700", "active:bg-red-600"); 
+                            btnStart.classList.remove("button-start--go");
+                            btnStart.classList.add("button-start--stop");
                         }                       
                     }else{
                         if(stop == true){
@@ -56,8 +56,8 @@ export default class CircleStop extends Circle{
                                 stop = false;
                                 lock = true;
                                 btnStart.textContent = "Start";
-                                btnStart.classList.remove("bg-red-500", "hover:bg-red-700", "active:bg-red-600");
-                                btnStart.classList.add("bg-green-500", "hover:bg-green-400", "active:bg-green-600");
+                                btnStart.classList.remove("button-start--stop");
+                                btnStart.classList.add("button-start--go");
                             }
                         }else{
                             angle += fast;
